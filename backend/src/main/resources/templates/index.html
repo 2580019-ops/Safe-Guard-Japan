@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${currentLang}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{app.title}">SafeGuard Japan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #0b132b; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+        .card-emergency { background-color: #1c2541; border: 1px solid #3b82f6; border-radius: 12px; }
+        .badge-live { background-color: #ef4444; }
+        .badge-cached { background-color: #f59e0b; color: #111; }
+    </style>
+</head>
+<body class="p-3 p-md-5">
+    <div class="container" style="max-width: 900px;">
+        <header class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
+            <div>
+                <h1 class="h3 text-danger fw-bold m-0" th:text="#{app.title}">SafeGuard Japan</h1>
+                <p class="text-secondary small m-0" th:text="#{app.subtitle}">Multilingual Disaster & Evacuation Portal</p>
+            </div>
+            <div>
+                <span class="badge bg-primary" th:text="${currentLang}">ja</span>
+            </div>
+        </header>
+
+        <!-- Current Disaster Alert Card with safe th:text escaping -->
+        <div class="card card-emergency p-4 mb-4 shadow">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span th:if="${alert.cached}" class="badge badge-cached" th:text="'CACHED: ' + ${alert.cachedAt}">Cached</span>
+                <span th:unless="${alert.cached}" class="badge badge-live">LIVE JMA</span>
+                <small class="text-secondary" th:text="${alert.source}">JMA</small>
+            </div>
+
+            <h2 class="h4 text-white" th:text="${alert.title}">Disaster Alert</h2>
+            <div class="row g-2 my-2">
+                <div class="col-md-6">
+                    <strong class="text-secondary">Area: </strong>
+                    <span class="text-warning fw-bold" th:text="${alert.affectedArea}">Nationwide</span>
+                </div>
+                <div class="col-md-6">
+                    <strong class="text-secondary">Intensity: </strong>
+                    <span class="text-warning fw-bold" th:text="${alert.intensity}">Normal</span>
+                </div>
+            </div>
+
+            <div class="alert alert-dark border-secondary mt-3 mb-0">
+                <h6 class="text-info fw-bold">Emergency Action Instructions:</h6>
+                <!-- th:text prevents any unsafe XSS execution -->
+                <p class="m-0" th:text="${alert.instructions}">Review emergency kits and designated evacuation paths.</p>
+            </div>
+        </div>
+
+        <nav class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <a href="/shelters" class="btn btn-primary px-4 py-2" th:text="#{nav.shelters}">Find Shelters</a>
+            <a href="/safety-status" class="btn btn-outline-light px-4 py-2" th:text="#{nav.safety}">Safety Message</a>
+            <a href="/alert-info" class="btn btn-outline-info px-4 py-2" th:text="#{nav.alert_info}">Alert Details</a>
+        </nav>
+    </div>
+</body>
+</html>

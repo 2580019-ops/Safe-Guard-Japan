@@ -1,0 +1,6 @@
+{
+  "name": "SafeGuard Japan",
+  "description": "SafeGuard Japan (セーフガード・ジャパン) — Multilingual Disaster Preparedness, Live JMA Alerts, and Evacuation Shelter Navigation.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
