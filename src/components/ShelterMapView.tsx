@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { SupportedLanguage, UI_TRANSLATIONS } from '../data/phrases';
 import { SAMPLE_SHELTERS, ShelterRecord } from '../data/shelters';
+import { apiUrl, isApiConfigured } from '../api';
 
 export interface ShelterResult {
   id: number;
@@ -99,9 +100,9 @@ export const ShelterMapView: React.FC<ShelterMapViewProps> = ({
     setIsLoading(true);
 
     try {
-      if (isOnline) {
+      if (isOnline && isApiConfigured) {
         const response = await fetch(
-          `/api/shelters?latitude=${lat}&longitude=${lon}&radiusKm=${radius}&disasterType=${type}&language=${language}`
+          `${apiUrl('/api/shelters')}?latitude=${lat}&longitude=${lon}&radiusKm=${radius}&disasterType=${type}&language=${language}`
         );
         if (response.ok) {
           const result = await response.json();

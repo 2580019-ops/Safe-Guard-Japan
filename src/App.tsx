@@ -15,6 +15,7 @@ import { EarthquakeDrillAnimation } from './components/EarthquakeDrillAnimation'
 import { EarthquakeGuideView } from './components/EarthquakeGuideView';
 import { usePWA } from './hooks/usePWA';
 import { SupportedLanguage, UI_TRANSLATIONS } from './data/phrases';
+import { apiUrl, isApiConfigured } from './api';
 
 export default function App() {
   // Multilingual preference with LocalStorage persistence
@@ -50,7 +51,8 @@ export default function App() {
   const fetchAlert = useCallback(async () => {
     setIsAlertLoading(true);
     try {
-      const res = await fetch(`/api/alert?language=${language}`);
+      if (!isApiConfigured) throw new Error('Alert API is not configured');
+      const res = await fetch(`${apiUrl('/api/alert')}?language=${language}`);
       if (res.ok) {
         const json = await res.json();
         setAlertData(json.data);
