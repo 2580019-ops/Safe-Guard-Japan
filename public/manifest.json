@@ -1,10 +1,10 @@
 {
-  "id": "/",
+  "id": "./",
   "name": "SafeGuard Japan (セーフガード・ジャパン)",
   "short_name": "SafeGuardJP",
   "description": "Disaster preparedness, real-time JMA alerts, shelter navigation, and offline safety confirmation.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0b132b",
@@ -12,13 +12,13 @@
   "categories": ["weather", "utilities", "travel"],
   "icons": [
     {
-      "src": "/icon.svg",
+      "src": "icon.svg",
       "sizes": "192x192 512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/icon.svg",
+      "src": "icon.svg",
       "sizes": "192x192 512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"

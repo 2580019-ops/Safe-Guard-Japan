@@ -47,7 +47,7 @@ export function usePWA() {
     // Register Service Worker if supported
     if ('serviceWorker' in navigator && process.env.NODE_ENV !== 'test') {
       navigator.serviceWorker
-        .register('/sw.js')
+        .register(`${import.meta.env.BASE_URL}sw.js`)
         .then((reg) => {
           console.log('[SafeGuard SW] Registered successfully with scope:', reg.scope);
         })

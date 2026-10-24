@@ -1,9 +1,10 @@
-const CACHE_NAME = 'safeguard-japan-v1';
+const CACHE_NAME = 'safeguard-japan-v2';
+const APP_BASE = new URL('./', self.location.href).pathname;
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon.svg',
+  APP_BASE,
+  `${APP_BASE}index.html`,
+  `${APP_BASE}manifest.json`,
+  `${APP_BASE}icon.svg`,
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'
 ];
@@ -42,7 +43,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
 
   // For API calls (/api/alert, /api/shelters) -> Network first, fallback to cache
-  if (url.pathname.startsWith('/api/')) {
+  if (url.pathname.startsWith('/api/') || url.pathname.startsWith(`${APP_BASE}api/`)) {
     event.respondWith(
       fetch(request)
         .then((response) => {
@@ -104,7 +105,7 @@ self.addEventListener('fetch', (event) => {
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request).catch(() => {
-        return caches.match('/index.html');
+          return caches.match(`${APP_BASE}index.html`);
       })
     );
     return;

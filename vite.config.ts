@@ -5,6 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: '/Safe-Guard-Japan/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
